@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1a1c2e">
+<meta name="robots" content="noindex">
+<title>Avaliação do SensorLab – UFT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   MATERIAL 3 EXPRESSIVE — SensorLab UFT
+   Dark scheme · Dynamic Color · Expressive shapes
+   ================================================================ */
+
+:root {
+  /* M3 Dark Scheme — custom seed: Teal/Cyan scientific */
+  --md-sys-color-primary:            #78D7F5;
+  --md-sys-color-on-primary:         #003545;
+  --md-sys-color-primary-container:  #004D63;
+  --md-sys-color-on-primary-container: #C3EEFF;
+  --md-sys-color-secondary:          #A9CBD6;
+  --md-sys-color-on-secondary:       #0F3540;
+  --md-sys-color-secondary-container:#2A4D58;
+  --md-sys-color-on-secondary-container: #C5E7F3;
+  --md-sys-color-tertiary:           #B8C8FF;
+  --md-sys-color-on-tertiary:        #1E2F6A;
+  --md-sys-color-tertiary-container: #354782;
+  --md-sys-color-on-tertiary-container: #DCE1FF;
+  --md-sys-color-error:              #FFB4AB;
+  --md-sys-color-on-error:           #690005;
+  --md-sys-color-error-container:    #93000A;
+  --md-sys-color-on-error-container: #FFDAD6;
+  --md-sys-color-background:         #0E1118;
+  --md-sys-color-on-background:      #E2E8F0;
+  --md-sys-color-surface:            #141820;
+  --md-sys-color-on-surface:         #E2E8F0;
+  --md-sys-color-surface-variant:    #1E2433;
+  --md-sys-color-on-surface-variant: #B0BCCC;
+  --md-sys-color-outline:            #4A5568;
+  --md-sys-color-outline-variant:    #2A3348;
+  --md-sys-color-surface-container-lowest:  #0A0D14;
+  --md-sys-color-surface-container-low:     #141820;
+  --md-sys-color-surface-container:         #1A1F2E;
+  --md-sys-color-surface-container-high:    #202636;
+  --md-sys-color-surface-container-highest: #273044;
+  --md-sys-color-inverse-surface:    #E2E8F0;
+  --md-sys-color-inverse-on-surface: #1A1F2E;
+  --md-sys-color-inverse-primary:    #006882;
+
+  /* Elevation tints (M3 uses colour + alpha overlay) */
+  --md-elev-1: rgba(120,215,245,0.05);
+  --md-elev-2: rgba(120,215,245,0.08);
+  --md-elev-3: rgba(120,215,245,0.11);
+
+  /* M3 Shape scale */
+  --md-shape-xs:   4px;
+  --md-shape-sm:   8px;
+  --md-shape-md:   12px;
+  --md-shape-lg:   16px;
+  --md-shape-xl:   28px;
+  --md-shape-full: 50px;
+
+  /* Typography scale */
+  --md-type-display-large:   2.25rem;
+  --md-type-display-medium:  1.75rem;
+  --md-type-headline-large:  1.375rem;
+  --md-type-headline-medium: 1.125rem;
+  --md-type-headline-small:  1rem;
+  --md-type-title-large:     1.25rem;
+  --md-type-title-medium:    1rem;
+  --md-type-title-small:     0.875rem;
+  --md-type-body-large:      1rem;
+  --md-type-body-medium:     0.875rem;
+  --md-type-body-small:      0.75rem;
+  --md-type-label-large:     0.875rem;
+  --md-type-label-medium:    0.75rem;
+  --md-type-label-small:     0.6875rem;
+
+  /* Motion */
+  --md-motion-standard:   cubic-bezier(0.2, 0, 0, 1);
+  --md-motion-decel:      cubic-bezier(0, 0, 0, 1);
+  --md-motion-accel:      cubic-bezier(0.3, 0, 1, 1);
+  --md-motion-spring:     cubic-bezier(0.34, 1.56, 0.64, 1);
+  --md-duration-short1:   50ms;
+  --md-duration-short2:   100ms;
+  --md-duration-medium1:  200ms;
+  --md-duration-medium2:  300ms;
+  --md-duration-long1:    450ms;
+
+  /* Safe area */
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top:    env(safe-area-inset-top, 0px);
+
+  /* Nav bar height */
+  --nav-h: 80px;
+}
+
+/* ---- Reset ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { height: 100%; overscroll-behavior: none; }
+body {
+  min-height: 100%;
+  background: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  font-family: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+  font-size: var(--md-type-body-large);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+  padding-top: var(--safe-top);
+}
+
+/* ---- App shell ---- */
+#app-shell {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--safe-top));
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ================================================================
+   TOP APP BAR — M3 Medium style
+   ================================================================ */
+.top-app-bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--md-sys-color-surface-container-low);
+  /* Expressive: asymmetric bottom border-radius */
+  border-radius: 0 0 var(--md-shape-xl) var(--md-shape-xl);
+  padding: 16px 20px 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  overflow: hidden;
+}
+.top-app-bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--md-elev-1);
+  pointer-events: none;
+}
+.tab-bar-headline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.tab-bar-icon {
+  width: 36px; height: 36px;
+  border-radius: var(--md-shape-sm);
+  background: var(--md-sys-color-primary-container);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.tab-bar-title {
+  font-size: var(--md-type-title-large);
+  font-weight: 700;
+  color: var(--md-sys-color-primary);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.tab-bar-sub {
+  font-size: var(--md-type-label-small);
+  color: var(--md-sys-color-on-surface-variant);
+  margin-top: 1px;
+}
+
+/* Horizontal scrollable chip tabs */
+.chip-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.chip-tabs::-webkit-scrollbar { display: none; }
+
+.chip-tab {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  white-space: nowrap;
+  padding: 8px 16px 7px;
+  border-radius: var(--md-shape-xl);
+  border: 1.5px solid var(--md-sys-color-outline-variant);
+  background: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    background var(--md-duration-medium1) var(--md-motion-standard),
+    color      var(--md-duration-medium1) var(--md-motion-standard),
+    border-color var(--md-duration-medium1) var(--md-motion-standard),
+    transform  var(--md-duration-short2) var(--md-motion-spring);
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+.chip-tab .chip-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+  transition: transform var(--md-duration-medium1) var(--md-motion-spring);
+}
+.chip-tab.active .chip-icon { transform: scale(1.1); }
+.chip-tab .chip-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+.chip-tab:active { transform: scale(0.94); }
+.chip-tab.active {
+  background: var(--md-sys-color-secondary-container);
+  border-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  font-weight: 700;
+}
+/* Ripple */
+.chip-tab::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity var(--md-duration-short2);
+  border-radius: inherit;
+}
+.chip-tab:active::after { opacity: 0.1; }
+
+/* ================================================================
+   CONTENT AREA
+   ================================================================ */
+#content-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  padding: 16px 16px calc(var(--nav-h) + var(--safe-bottom) + 16px);
+  scrollbar-width: thin;
+  scrollbar-color: var(--md-sys-color-outline-variant) transparent;
+}
+#content-area::-webkit-scrollbar { width: 4px; }
+#content-area::-webkit-scrollbar-thumb { background: var(--md-sys-color-outline-variant); border-radius: 2px; }
+
+/* Tab pages */
+.tab-content { display: none; animation: fadeSlideIn var(--md-duration-medium2) var(--md-motion-decel) both; }
+.tab-content.active { display: block; }
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Section headings */
+.section-title {
+  font-size: var(--md-type-headline-medium);
+  font-weight: 700;
+  color: var(--md-sys-color-on-surface);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ================================================================
+   BOTTOM NAVIGATION BAR — M3 style
+   ================================================================ */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 600px;
+  height: calc(var(--nav-h) + var(--safe-bottom));
+  padding-bottom: var(--safe-bottom);
+  background: var(--md-sys-color-surface-container-low);
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  z-index: 30;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: var(--md-shape-xl) var(--md-shape-xl) 0 0;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+}
+.bottom-nav::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--md-elev-2);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 4px 6px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--md-sys-color-on-surface-variant);
+  transition:
+    color var(--md-duration-medium1) var(--md-motion-standard);
+  position: relative;
+  min-width: 0;
+  gap: 3px;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-item:active { transform: scale(0.92); }
+
+/* Active indicator pill */
+.nav-indicator {
+  position: absolute;
+  top: 6px;
+  width: 64px; height: 32px;
+  border-radius: var(--md-shape-full);
+  background: var(--md-sys-color-secondary-container);
+  opacity: 0;
+  transition:
+    opacity var(--md-duration-medium1) var(--md-motion-standard),
+    width   var(--md-duration-medium1) var(--md-motion-spring);
+}
+.nav-item.active .nav-indicator { opacity: 1; }
+.nav-item.active { color: var(--md-sys-color-on-secondary-container); }
+
+.nav-icon {
+  font-size: 1.35rem;
+  position: relative;
+  z-index: 1;
+  line-height: 1;
+  transition: transform var(--md-duration-medium1) var(--md-motion-spring);
+}
+.nav-item.active .nav-icon { transform: scale(1.1); }
+.nav-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 56px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ================================================================
+   M3 CARDS — Filled, Elevated, Outlined
+   ================================================================ */
+.m3-card {
+  background: var(--md-sys-color-surface-container);
+  border-radius: var(--md-shape-xl);
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  position: relative;
+  overflow: hidden;
+}
+.m3-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--md-elev-1);
+  pointer-events: none;
+  border-radius: inherit;
+}
+.m3-card-elevated {
+  background: var(--md-sys-color-surface-container-high);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 0 0 1px var(--md-sys-color-outline-variant);
+}
+.m3-card-tonal {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  border-color: transparent;
+}
+.m3-card-title {
+  font-size: var(--md-type-title-medium);
+  font-weight: 700;
+  color: var(--md-sys-color-primary);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.m3-card-subtitle {
+  font-size: var(--md-type-body-small);
+  color: var(--md-sys-color-on-surface-variant);
+  margin-bottom: 10px;
+}
+
+/* ================================================================
+   M3 BUTTONS
+   ================================================================ */
+.btn-filled {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 24px;
+  border-radius: var(--md-shape-full);
+  border: none;
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  font-size: var(--md-type-label-large);
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    background var(--md-duration-short2) var(--md-motion-standard),
+    transform  var(--md-duration-short1) var(--md-motion-spring);
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+.btn-filled:active { transform: scale(0.96); }
+.btn-filled-tonal {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+.btn-outlined {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 9px 24px;
+  border-radius: var(--md-shape-full);
+  border: 1.5px solid var(--md-sys-color-outline);
+  background: transparent;
+  color: var(--md-sys-color-primary);
+  font-size: var(--md-type-label-large);
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--md-duration-short2) var(--md-motion-standard);
+}
+.btn-outlined:active { background: rgba(120,215,245,0.08); }
+.btn-text {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 8px 12px;
+  border-radius: var(--md-shape-full);
+  border: none;
+  background: transparent;
+  color: var(--md-sys-color-primary);
+  font-size: var(--md-type-label-large);
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background var(--md-duration-short2);
+}
+.btn-text:active { background: rgba(120,215,245,0.08); }
+.btn-full { width: 100%; }
+.btn-danger { background: var(--md-sys-color-error-container); color: var(--md-sys-color-on-error-container); }
+.btn-success { background: #1A7A4A; color: #fff; }
+
+/* ================================================================
+   M3 TEXT FIELDS
+   ================================================================ */
+.m3-field {
+  position: relative;
+  margin-bottom: 16px;
+}
+.m3-field label {
+  display: block;
+  font-size: var(--md-type-label-medium);
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface-variant);
+  margin-bottom: 6px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.m3-input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--md-shape-sm);
+  border: 1.5px solid var(--md-sys-color-outline);
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+  font-size: var(--md-type-body-large);
+  font-family: inherit;
+  outline: none;
+  transition:
+    border-color var(--md-duration-medium1) var(--md-motion-standard),
+    background   var(--md-duration-medium1) var(--md-motion-standard);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.m3-input:focus {
+  border-color: var(--md-sys-color-primary);
+  background: var(--md-sys-color-surface-container-highest);
+  box-shadow: 0 0 0 2px rgba(120,215,245,0.18);
+}
+.m3-input::placeholder { color: var(--md-sys-color-on-surface-variant); opacity: 0.7; }
+.m3-input-mono { font-family: 'Roboto Mono', 'Space Mono', monospace; }
+
+/* M3 Select */
+.m3-select {
+  width: 100%;
+  padding: 11px 16px;
+  border-radius: var(--md-shape-sm);
+  border: 1.5px solid var(--md-sys-color-outline);
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+  font-size: var(--md-type-body-medium);
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* ================================================================
+   DATA CHIPS & BADGES
+   ================================================================ */
+.data-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 5px 12px;
+  border-radius: var(--md-shape-full);
+  background: var(--md-sys-color-surface-container-high);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: var(--md-type-label-medium);
+  font-weight: 600;
+}
+.data-chip-primary { background: var(--md-sys-color-primary-container); border-color: transparent; color: var(--md-sys-color-on-primary-container); }
+.data-chip-tonal   { background: var(--md-sys-color-secondary-container); border-color: transparent; color: var(--md-sys-color-on-secondary-container); }
+.data-chip-error   { background: var(--md-sys-color-error-container); border-color: transparent; color: var(--md-sys-color-on-error-container); }
+
+/* ================================================================
+   STAT TILES (2×2 grid)
+   ================================================================ */
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.stat-tile {
+  background: var(--md-sys-color-surface-container-high);
+  border-radius: var(--md-shape-lg);
+  padding: 14px 12px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.stat-label {
+  font-size: var(--md-type-label-small);
+  color: var(--md-sys-color-on-surface-variant);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.stat-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--md-sys-color-primary);
+  font-family: 'Roboto Mono', 'Space Mono', monospace;
+  line-height: 1.2;
+}
+.stat-unit { font-size: var(--md-type-label-small); color: var(--md-sys-color-on-surface-variant); }
+
+/* ================================================================
+   STATUS BAR
+   ================================================================ */
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--md-shape-lg);
+  background: var(--md-sys-color-surface-container-high);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  font-size: var(--md-type-body-medium);
+  margin-bottom: 12px;
+}
+.status-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--md-sys-color-outline);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.status-dot.active { background: #4ade80; box-shadow: 0 0 8px #4ade80; }
+.status-dot.error  { background: var(--md-sys-color-error); }
+.status-dot.warn   { background: #facc15; box-shadow: 0 0 8px #facc15; animation: pulse-dot 1.4s ease infinite; }
+@keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* ================================================================
+   SPECTRUM BANDS
+   ================================================================ */
+.spectrum-bar {
+  display: flex;
+  height: 56px;
+  border-radius: var(--md-shape-md);
+  overflow: hidden;
+  cursor: pointer;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.spec-band {
+  flex: 1;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.55rem;
+  font-weight: 700;
+  text-align: center;
+  transition: filter var(--md-duration-medium1);
+  padding: 2px;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  line-height: 1.2;
+}
+.spec-band:active { filter: brightness(1.3); }
+
+/* ================================================================
+   QUIZ
+   ================================================================ */
+.quiz-opt {
+  width: 100%;
+  text-align: left;
+  padding: 14px 16px;
+  border-radius: var(--md-shape-lg);
+  border: 1.5px solid var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+  font-size: var(--md-type-body-medium);
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    background var(--md-duration-medium1) var(--md-motion-standard),
+    border-color var(--md-duration-medium1) var(--md-motion-standard),
+    transform var(--md-duration-short2) var(--md-motion-spring);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.quiz-opt:active { transform: scale(0.98); }
+.quiz-opt.correct { background: #14532d; border-color: #4ade80; color: #bbf7d0; }
+.quiz-opt.incorrect { background: var(--md-sys-color-error-container); border-color: var(--md-sys-color-error); color: var(--md-sys-color-on-error-container); }
+
+/* Progress bar */
+.progress-bar {
+  height: 6px;
+  background: var(--md-sys-color-surface-container-high);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--md-sys-color-primary);
+  border-radius: 3px;
+  transition: width var(--md-duration-medium2) var(--md-motion-standard);
+}
+
+/* ================================================================
+   GAME CARDS
+   ================================================================ */
+.game-card {
+  border-radius: var(--md-shape-xl);
+  padding: 16px;
+  margin-bottom: 10px;
+  border: 2px solid;
+  position: relative;
+  overflow: hidden;
+}
+.game-card-player { border-color: var(--md-sys-color-primary); background: var(--md-sys-color-primary-container); }
+.game-card-computer { border-color: var(--md-sys-color-error); background: var(--md-sys-color-error-container); }
+.attr-btn {
+  padding: 8px 14px;
+  border-radius: var(--md-shape-full);
+  border: 1.5px solid var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+  font-size: var(--md-type-label-medium);
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--md-duration-medium1) var(--md-motion-standard);
+  margin: 4px;
+}
+.attr-btn:active { transform: scale(0.94); background: var(--md-sys-color-primary-container); }
+
+/* ================================================================
+   INDEX / RGB
+   ================================================================ */
+.view-seg {
+  display: flex;
+  background: var(--md-sys-color-surface-container-high);
+  border-radius: var(--md-shape-full);
+  padding: 4px;
+  margin-bottom: 12px;
+  gap: 4px;
+}
+.view-seg-btn {
+  flex: 1;
+  padding: 7px 4px;
+  border-radius: var(--md-shape-full);
+  border: none;
+  background: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: var(--md-type-label-medium);
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--md-duration-medium1) var(--md-motion-standard);
+  text-align: center;
+}
+.view-seg-btn.active {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+/* ================================================================
+   COMPASS canvas wrapper
+   ================================================================ */
+.compass-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 0 4px;
+}
+.compass-direction {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--md-sys-color-primary);
+  line-height: 1;
+  margin-top: 10px;
+  letter-spacing: 0.04em;
+}
+.compass-deg-label {
+  font-size: var(--md-type-body-small);
+  color: var(--md-sys-color-on-surface-variant);
+  margin-top: 4px;
+}
+
+/* ================================================================
+   CONVERTER
+   ================================================================ */
+.conv-result {
+  border-radius: var(--md-shape-lg);
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  padding: 14px;
+  margin-top: 12px;
+}
+.conv-result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  gap: 8px;
+}
+.conv-result-row:last-child { border-bottom: none; }
+.conv-result-label { font-size: var(--md-type-label-medium); opacity: 0.75; flex-shrink: 0; }
+.conv-result-value { font-family: 'Roboto Mono', 'Space Mono', monospace; font-size: var(--md-type-body-medium); font-weight: 700; text-align: right; word-break: break-all; }
+
+/* ================================================================
+   GLOSSARY
+   ================================================================ */
+.gloss-item {
+  border-radius: var(--md-shape-lg);
+  background: var(--md-sys-color-surface-container);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+.gloss-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  cursor: pointer;
+  gap: 8px;
+  user-select: none;
+}
+.gloss-header-title {
+  font-size: var(--md-type-title-small);
+  font-weight: 700;
+  color: var(--md-sys-color-primary);
+  flex: 1;
+}
+.gloss-chevron {
+  font-size: 0.8rem;
+  color: var(--md-sys-color-on-surface-variant);
+  transition: transform var(--md-duration-medium1) var(--md-motion-standard);
+  flex-shrink: 0;
+}
+.gloss-body {
+  display: none;
+  padding: 0 16px 14px;
+  font-size: var(--md-type-body-medium);
+  color: var(--md-sys-color-on-surface-variant);
+  line-height: 1.6;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+}
+.gloss-item.open .gloss-body { display: block; }
+.gloss-item.open .gloss-chevron { transform: rotate(180deg); }
+
+/* ================================================================
+   CURIOSITY CARDS
+   ================================================================ */
+.curiosity-card {
+  border-radius: var(--md-shape-xl);
+  background: var(--md-sys-color-surface-container);
+  border: 1.5px solid var(--md-sys-color-outline-variant);
+  padding: 16px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background var(--md-duration-medium1) var(--md-motion-standard);
+  position: relative;
+  overflow: hidden;
+}
+.curiosity-card:active { background: var(--md-sys-color-surface-container-high); }
+.curiosity-answer {
+  display: none;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  font-size: var(--md-type-body-medium);
+  color: var(--md-sys-color-on-surface-variant);
+  line-height: 1.6;
+  animation: fadeSlideIn var(--md-duration-medium1) var(--md-motion-decel) both;
+}
+.curiosity-card.open .curiosity-answer { display: block; }
+
+/* ================================================================
+   QUANTITIES TABLE
+   ================================================================ */
+.qty-card {
+  border-radius: var(--md-shape-lg);
+  background: var(--md-sys-color-surface-container);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  padding: 14px;
+  margin-bottom: 10px;
+}
+.qty-name { font-size: var(--md-type-title-small); font-weight: 700; color: var(--md-sys-color-primary); margin-bottom: 8px; }
+.qty-row { display: flex; gap: 8px; margin-bottom: 4px; font-size: var(--md-type-body-small); }
+.qty-key { font-weight: 700; color: var(--md-sys-color-on-surface-variant); min-width: 80px; flex-shrink: 0; }
+.qty-val { color: var(--md-sys-color-on-surface); flex: 1; }
+
+/* ================================================================
+   SNACKBAR
+   ================================================================ */
+#snackbar {
+  position: fixed;
+  bottom: calc(var(--nav-h) + var(--safe-bottom) + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--md-sys-color-inverse-surface);
+  color: var(--md-sys-color-inverse-on-surface);
+  padding: 12px 20px;
+  border-radius: var(--md-shape-sm);
+  font-size: var(--md-type-body-medium);
+  font-weight: 600;
+  opacity: 0;
+  transition: all var(--md-duration-medium1) var(--md-motion-decel);
+  pointer-events: none;
+  z-index: 100;
+  max-width: calc(100vw - 32px);
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+#snackbar.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ================================================================
+   MISC UTILITIES
+   ================================================================ */
+.divider { border: none; border-top: 1px solid var(--md-sys-color-outline-variant); margin: 12px 0; }
+.text-primary { color: var(--md-sys-color-primary); }
+.text-secondary { color: var(--md-sys-color-secondary); }
+.text-error { color: var(--md-sys-color-error); }
+.text-muted { color: var(--md-sys-color-on-surface-variant); }
+.font-mono { font-family: 'Roboto Mono', 'Space Mono', monospace; }
+.hidden { display: none !important; }
+canvas { max-width: 100%; height: auto; border-radius: var(--md-shape-md); }
+
+/* Landscape/desktop: 2-col layout capped at 600px */
+@media (min-width: 540px) {
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+}
+
+/* FAB */
+.fab {
+  width: 56px; height: 56px;
+  border-radius: var(--md-shape-lg);
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  border: none;
+  font-size: 1.4rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+  transition: all var(--md-duration-medium1) var(--md-motion-spring);
+}
+.fab:active { transform: scale(0.93); }
+
+/* Index color-bar */
+.colorbar {
+  height: 20px;
+  border-radius: var(--md-shape-xs);
+  background: linear-gradient(to right, #8B4513, #CD853F, #7CCD7C, #228B22, #006400);
+  margin: 6px 0 2px;
+}
+
+/* Info panel */
+.info-panel {
+  background: rgba(120,215,245,0.07);
+  border: 1px solid rgba(120,215,245,0.2);
+  border-radius: var(--md-shape-md);
+  padding: 10px 12px;
+  font-size: var(--md-type-body-small);
+  color: var(--md-sys-color-on-primary-container);
+  margin-bottom: 12px;
+}
+
+/* ================================================================
+   TRILHA DE APRENDIZAGEM / ATIVIDADES GUIADAS
+   ================================================================ */
+.chip-tab { flex-shrink: 0; }
+.act-card { border-left: 4px solid var(--md-sys-color-primary); }
+.act-card.done { border-left-color: #4ade80; }
+.act-card summary { cursor:pointer; font-weight:700; color:var(--md-sys-color-primary); font-size:var(--md-type-body-medium); list-style:none; display:flex; justify-content:space-between; gap:8px; align-items:center; }
+.act-card summary::-webkit-details-marker { display:none; }
+.act-obj { font-size:var(--md-type-body-small); color:var(--md-sys-color-on-surface); margin:10px 0 6px; line-height:1.6; }
+.act-steps { font-size:var(--md-type-body-small); color:var(--md-sys-color-on-surface-variant); padding-left:20px; line-height:1.7; margin-bottom:10px; }
+.act-q { font-size:var(--md-type-body-medium); font-weight:600; margin:10px 0 8px; line-height:1.5; }
+.act-fb { font-size:var(--md-type-body-small); line-height:1.6; margin-top:4px; }
+.status-pill { font-size:0.7rem; font-weight:700; padding:3px 10px; border-radius:var(--md-shape-full); white-space:nowrap; }
+.status-pill.ok { background:#14532d; color:#bbf7d0; }
+.status-pill.todo { background:var(--md-sys-color-surface-container-high); color:var(--md-sys-color-on-surface-variant); }
+.level-title { font-size:var(--md-type-title-small); font-weight:700; color:var(--md-sys-color-secondary); margin:18px 4px 8px; }
+.trail-row { display:flex; gap:12px; align-items:flex-start; }
+.trail-row .trail-ico { font-size:1.6rem; line-height:1; }
+.trail-row .trail-body { flex:1; min-width:0; }
+.trail-row h3 { font-size:var(--md-type-body-large); font-weight:700; margin-bottom:4px; }
+.trail-row p { font-size:var(--md-type-body-small); color:var(--md-sys-color-on-surface-variant); line-height:1.5; }
+.mini-table { width:100%; border-collapse:collapse; font-size:0.72rem; margin-top:8px; }
+.mini-table th, .mini-table td { border:1px solid var(--md-sys-color-outline-variant); padding:4px 5px; text-align:center; }
+.mini-table th { background:var(--md-sys-color-surface-container-high); font-weight:700; }
+.mini-table td.diag { background:rgba(74,222,128,0.15); font-weight:700; }
+.table-wrap { overflow-x:auto; }
+.seg2 { display:flex; gap:6px; margin-bottom:10px; }
+.seg2 button { flex:1; }
+.quiz-exp { font-size:var(--md-type-body-small); line-height:1.6; color:var(--md-sys-color-on-surface-variant); background:var(--md-sys-color-surface-container-high); border-radius:var(--md-shape-md); padding:10px 12px; margin-bottom:12px; }
+:focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+/* ================================================================
+   QUESTIONÁRIO
+   ================================================================ */
+#content-area { padding: 16px 16px calc(28px + var(--safe-bottom)); }
+.muted { font-size: var(--md-type-body-small); color: var(--md-sys-color-on-surface-variant); }
+.intro { font-size: var(--md-type-body-medium); line-height: 1.6; }
+.plain-list { margin: 10px 0 0 18px; line-height: 1.7; font-size: var(--md-type-body-small); }
+.q-card { background: var(--md-sys-color-surface-container); border: 1px solid var(--md-sys-color-outline-variant); border-left: 4px solid var(--md-sys-color-outline); border-radius: var(--md-shape-lg); padding: 14px; margin-bottom: 10px; }
+.q-card.answered { border-left-color: #4ade80; }
+.q-text { font-size: var(--md-type-body-medium); font-weight: 600; line-height: 1.5; margin-bottom: 10px; }
+.q-id { display: inline-block; font-size: 0.68rem; font-weight: 800; color: var(--md-sys-color-on-primary-container); background: var(--md-sys-color-primary-container); border-radius: 6px; padding: 1px 6px; margin-right: 6px; vertical-align: 1px; }
+.opt { display: block; width: 100%; text-align: left; font-family: inherit; font-size: var(--md-type-body-medium); color: var(--md-sys-color-on-surface); background: var(--md-sys-color-surface-container-high); border: 1.5px solid var(--md-sys-color-outline-variant); border-radius: var(--md-shape-md); padding: 11px 12px 11px 38px; margin-bottom: 6px; cursor: pointer; position: relative; line-height: 1.35; }
+.opt::before { content: ''; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--md-sys-color-outline); }
+.opt.chk::before { border-radius: 4px; }
+.opt.on { border-color: var(--md-sys-color-primary); background: rgba(120,215,245,0.12); }
+.opt.on::before { background: var(--md-sys-color-primary); border-color: var(--md-sys-color-primary); box-shadow: inset 0 0 0 3px var(--md-sys-color-surface-container-high); }
+.scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.scale-btn { font-family: inherit; font-size: var(--md-type-title-small); font-weight: 800; min-height: 44px; border-radius: var(--md-shape-md); border: 1.5px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface-container-high); color: var(--md-sys-color-on-surface); cursor: pointer; }
+.scale-btn.on { background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border-color: transparent; }
+.scale-btn.sm { min-height: 38px; font-size: var(--md-type-label-large); padding: 0; }
+.scale-btn.nu { font-size: 0.62rem; font-weight: 700; }
+.scale-ends { display: flex; justify-content: space-between; font-size: 0.66rem; color: var(--md-sys-color-on-surface-variant); margin-top: 4px; }
+.pp-lbl { font-size: var(--md-type-label-small); font-weight: 700; color: var(--md-sys-color-secondary); margin-bottom: 4px; }
+.mod-row { padding: 8px 0; border-top: 1px solid var(--md-sys-color-outline-variant); }
+.mod-row:first-of-type { border-top: none; }
+.mod-name { font-size: var(--md-type-body-small); font-weight: 700; margin-bottom: 6px; }
+.mod-btns { display: grid; grid-template-columns: repeat(5, 1fr) 1.6fr; gap: 5px; }
+textarea.m3-input { resize: vertical; min-height: 80px; line-height: 1.5; }
+.nav-row { display: flex; gap: 8px; margin-top: 8px; }
+.nav-row button { flex: 1; }
+.rev-row { display: flex; justify-content: space-between; width: 100%; font-family: inherit; font-size: var(--md-type-body-medium); color: var(--md-sys-color-on-surface); background: none; border: none; border-bottom: 1px solid var(--md-sys-color-outline-variant); padding: 11px 2px; cursor: pointer; text-align: left; }
+.rev-row .ok { color: #4ade80; font-weight: 700; }
+.rev-row .warn { color: #fbbf24; font-weight: 700; }
+:focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<div id="app-shell">
+  <header class="top-app-bar" style="padding-bottom:12px;">
+    <div class="tab-bar-headline" style="margin-bottom:10px;">
+      <div class="tab-bar-icon" aria-hidden="true">📝</div>
+      <div>
+        <div class="tab-bar-title">Avaliação do SensorLab</div>
+        <div class="tab-bar-sub">Sensoriamento Remoto • Agronomia UFT • anônimo</div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:var(--md-type-label-small);color:var(--md-sys-color-on-surface-variant);">
+      <span id="stepLabel">Início</span><span id="stepCount"></span>
+    </div>
+    <div class="progress-bar" style="margin:6px 0 0;"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
+  </header>
+
+  <main id="content-area">
+    <div id="cfgWarn" class="info-panel hidden" style="border-color:var(--md-sys-color-error);color:var(--md-sys-color-error);"></div>
+    <div id="screen"></div>
+    <div id="navRow" class="nav-row">
+      <button id="btnPrev" class="btn-outlined">‹ Voltar</button>
+      <button id="btnNext" class="btn-filled">Próxima ›</button>
+    </div>
+  </main>
+</div>
+<div id="snackbar" role="status" aria-live="polite"></div>
+
+<script>
+// ================================================================
+//  CONFIGURAÇÃO — preencha antes de publicar
+// ================================================================
+const CONFIG = {
+  // URL do App Script implantado como "App da Web" (termina em /exec)
+  // Opção A (mais simples): chave de acesso do Web3Forms (web3forms.com).
+  // As respostas chegam por e-mail, uma mensagem por aluno.
+  WEB3FORMS_KEY: '48e4d06a-4d4a-40fe-a25b-469723f4066c',
+  // Opção B: URL do Apps Script implantado como "App da Web" (termina em /exec).
+  ENDPOINT: '',
+  // Identificação da turma/aplicação (aparece em cada linha da planilha)
+  TURMA: 'Agronomia UFT 2026/2 · Sensoriamento Remoto',
+  // false se a turma usou a versão do SensorLab sem a Trilha e as atividades guiadas
+  MOSTRAR_TRILHA: true,
+  VERSAO_FORM: '1.0'
+};
+
+// ================================================================
+//  INSTRUMENTO
+// ================================================================
+const LIKERT = ['Discordo totalmente','Discordo','Neutro','Concordo','Concordo totalmente'];
+const CONHEC = ['Nenhum','Pouco','Razoável','Bom','Domino'];
+const SECTIONS = [
+  { id:'TCLE', titulo:'Apresentação', intro:`<p>Prezado(a) estudante,</p><p style="margin-top:8px;">Este questionário avalia o uso do aplicativo <strong>SensorLab – UFT</strong> na disciplina de Sensoriamento Remoto. Suas respostas vão ajudar a melhorar o aplicativo e poderão ser apresentadas, de forma agregada, em trabalho científico.</p>
+      <ul class="plain-list"><li>A participação é <strong>voluntária e anônima</strong>: não pedimos nome, matrícula nem e-mail.</li><li>Suas respostas <strong>não afetam sua nota</strong>. Nas partes de opinião não há resposta certa ou errada.</li><li>Você pode deixar perguntas em branco ou desistir a qualquer momento.</li><li>Tempo estimado: 15 minutos.</li></ul>`,
+    items:[ { id:'consentimento', type:'single', q:'Declaro que tenho 18 anos ou mais e concordo em participar.', opts:['Sim, concordo em participar','Não concordo'], obrig:true } ] },
+
+  { id:'A', titulo:'Parte A · Perfil e condições de uso', items:[
+    { id:'A1', type:'single', q:'Faixa de idade', opts:['18 a 20 anos','21 a 23 anos','24 a 26 anos','27 anos ou mais'] },
+    { id:'A2', type:'single', q:'Período do curso', opts:['Até o 4º','5º','6º','7º ou mais'] },
+    { id:'A3', type:'single', q:'Antes desta disciplina, você já havia tido contato com sensoriamento remoto, SIG ou imagens de satélite?', opts:['Nunca','Pouco (vi em alguma aula ou palestra)','Sim (estágio, iniciação científica ou trabalho)'] },
+    { id:'A4', type:'single', q:'Em qual dispositivo você usou o aplicativo com mais frequência?', opts:['Celular Android','iPhone','Computador ou notebook','Tablet'] },
+    { id:'A5', type:'single', q:'Como você acessou o aplicativo?', opts:['Instalei na tela inicial','Usei pelo navegador','Não sei'] },
+    { id:'A6', type:'multi', q:'Quais dificuldades técnicas você teve? (marque todas que se aplicam)', opts:['Nenhuma','Internet lenta ou ausente','Câmera não funcionou','GPS ou bússola não funcionou','Aplicativo travou ou ficou lento','Tela pequena para ver as imagens'], outro:true, exclusivo:'Nenhuma' },
+    { id:'A7', type:'single', q:'Quanto tempo você usou o aplicativo fora do horário de aula?', opts:['Nenhum','Menos de 30 min','30 min a 1 h','1 a 2 h','Mais de 2 h'] },
+    { id:'A8', type:'multi', q:'Em quais situações você usou o aplicativo? (marque todas)', opts:['Durante a aula','Para estudar para a avaliação','Durante a avaliação','Por curiosidade, em outros momentos'] }
+  ]},
+
+  { id:'B', titulo:'Parte B · Seu conhecimento antes e depois', intro:'Para cada conteúdo, indique quanto você sabia <strong>antes</strong> de usar o aplicativo e quanto sabe <strong>agora</strong>. 1 = nenhum conhecimento · 5 = domino e consigo explicar a um colega.', items:[
+    ['B1','Espectro eletromagnético e janelas atmosféricas'],
+    ['B2','Espalhamento atmosférico (Rayleigh, Mie, não seletivo)'],
+    ['B3','Grandezas radiométricas (número digital, radiância, reflectância)'],
+    ['B4','Comportamento espectral da vegetação, do solo e da água'],
+    ['B5','Resoluções dos sensores (espacial, espectral, temporal, radiométrica)'],
+    ['B6','Composições coloridas (cor natural e falsa cor)'],
+    ['B7','Índices de vegetação (NDVI, SAVI, EVI, NDWI) e sua interpretação'],
+    ['B8','Classificação supervisionada de imagens'],
+    ['B9','Avaliação da acurácia (matriz de confusão e índice Kappa)'],
+    ['B10','Coordenadas GPS e sistema UTM'] ].map(([id,q]) => ({ id, type:'prepost', q })) },
+
+  { id:'C', titulo:'Parte C · Facilidade de uso do aplicativo', intro:'Marque o quanto você concorda com cada afirmação.', items:[
+    'Eu acho que gostaria de usar este aplicativo com frequência.',
+    'Eu achei o aplicativo desnecessariamente complexo.',
+    'Eu achei o aplicativo fácil de usar.',
+    'Eu acho que precisaria da ajuda de uma pessoa com conhecimentos técnicos para usar o aplicativo.',
+    'Eu achei que as diversas funções do aplicativo estavam bem integradas.',
+    'Eu achei que havia muita inconsistência no aplicativo.',
+    'Eu imagino que a maioria das pessoas aprenderia a usar este aplicativo rapidamente.',
+    'Eu achei o aplicativo muito complicado de usar.',
+    'Eu me senti muito confiante ao usar o aplicativo.',
+    'Eu precisei aprender muitas coisas antes de conseguir usar o aplicativo.' ].map((q,i) => ({ id:'C'+(i+1), type:'likert', q })) },
+
+  { id:'D', titulo:'Parte D · O aplicativo e a sua aprendizagem', intro:'Marque o quanto você concorda com cada afirmação.', items:[
+    ...[ 'O aplicativo me ajudou a compreender conceitos que pareciam abstratos na aula teórica.',
+      'As simulações interativas (espalhamento, índices, classificação) facilitaram visualizar os fenômenos.',
+      'Trabalhar com uma imagem real do Sentinel-2 aproximou o conteúdo da prática agronômica.',
+      'As explicações após cada resposta do quiz me ajudaram a corrigir erros de entendimento.',
+      'As atividades guiadas (objetivo, roteiro e desafio) orientaram meu estudo.',
+      'A Trilha de Aprendizagem me ajudou a seguir uma sequência lógica de conteúdos.',
+      'Consegui estudar com o aplicativo de forma autônoma, sem depender do professor.',
+      'Participei mais ativamente desta aula do que de aulas apenas expositivas.',
+      'O aplicativo aumentou meu interesse pela disciplina.',
+      'Sei aplicar o que aprendi a situações reais, como monitorar uma lavoura.',
+      'Usar o aplicativo na avaliação foi adequado ao conteúdo trabalhado.',
+      'Eu recomendaria o aplicativo a colegas de outras turmas.',
+      'Pretendo continuar usando o aplicativo para estudar.' ].map((q,i) => ({ id:'D'+(i+1), type:'likert', q, trilha: i===4 || i===5 })),
+    { id:'D14', type:'modgrid', q:'Quanto cada módulo contribuiu para a sua aprendizagem? (1 = nada · 5 = muito)',
+      mods:[['trilha','Trilha de Aprendizagem'],['espectro','Espectro eletromagnético'],['espalhamento','Espalhamento'],['grandezas','Grandezas radiométricas'],['quiz','Quiz'],['trunfo','Trunfo dos satélites'],['camera','Câmera (radiometria)'],['indices','Índices de vegetação'],['classificacao','Classificação supervisionada'],['gps_utm','GPS e conversão UTM'],['glossario','Glossário']] }
+  ]},
+
+  { id:'E', titulo:'Parte E · Verificação de conhecimentos', intro:'Marque uma alternativa por questão. Esta parte também é anônima e não vale nota.', items:[
+    { id:'E1', type:'single', q:'Na composição falsa cor com o NIR no canal vermelho (B8-B4-B3), uma lavoura de soja em pleno desenvolvimento aparece em:', opts:['a) verde','b) vermelho intenso','c) azul-escuro','d) branco'], key:1 },
+    { id:'E2', type:'single', q:'Um talhão apresenta NDVI = 0,15 numa imagem em reflectância de superfície. A interpretação mais provável é:', opts:['a) vegetação densa','b) solo exposto ou palhada','c) água','d) cultura no pico vegetativo'], key:1 },
+    { id:'E3', type:'single', q:'A vegetação sadia tem alta reflectância no infravermelho próximo principalmente por causa:', opts:['a) da absorção pela clorofila','b) do espalhamento na estrutura interna da folha (mesofilo)','c) da emissão de calor pela folha','d) da água presente na folha'], key:1 },
+    { id:'E4', type:'single', q:'Para monitorar uma lavoura no período chuvoso, com nuvens quase todos os dias, o sensor mais indicado é:', opts:['a) Sentinel-2 (óptico)','b) Landsat 9 (óptico)','c) Sentinel-1 (radar)','d) MODIS (óptico)'], key:2 },
+    { id:'E5', type:'single', q:'A fumaça das queimadas reduz o contraste das imagens na estação seca. O espalhamento predominante nesse caso é:', opts:['a) Rayleigh','b) Mie','c) não seletivo','d) especular'], key:1 },
+    { id:'E6', type:'single', q:'Para comparar o NDVI de um mesmo talhão em duas datas, deve-se usar:', opts:['a) número digital (DN)','b) reflectância de superfície','c) radiância sem correção','d) temperatura de brilho'], key:1 },
+    { id:'E7', type:'single', q:'Um mapa de classificação obteve exatidão global de 85% e índice Kappa de 0,78. Segundo Landis e Koch, a concordância é:', opts:['a) substancial','b) fraca','c) razoável','d) não é possível avaliar sem mais dados'], key:0 },
+    { id:'E8', type:'single', q:'O município de Gurupi (TO) está localizado em qual fuso UTM?', opts:['a) 21 S','b) 22 S','c) 23 S','d) 24 S'], key:1 }
+  ]},
+
+  { id:'F', titulo:'Parte F · Sua opinião', intro:'Responda com suas palavras. Respostas curtas já ajudam muito.', items:[
+    { id:'F1', type:'text', q:'O que mais ajudou a sua aprendizagem no aplicativo? Por quê?' },
+    { id:'F2', type:'text', q:'Qual conteúdo continuou difícil mesmo depois de usar o aplicativo?' },
+    { id:'F3', type:'text', q:'Que dificuldades de uso ou problemas técnicos você encontrou?' },
+    { id:'F4', type:'text', q:'O que você mudaria ou acrescentaria no aplicativo?' },
+    { id:'F5', type:'text', q:'Saber que o aplicativo seria usado na avaliação mudou a sua forma de estudar? Como?' }
+  ]}
+];
+// Remove itens da Trilha se a turma usou a versão antiga
+if (!CONFIG.MOSTRAR_TRILHA){
+  const D = SECTIONS.find(s => s.id==='D');
+  D.items = D.items.filter(it => !it.trilha);
+  D.items.find(it => it.id==='D14').mods = D.items.find(it => it.id==='D14').mods.filter(m => m[0]!=='trilha');
+}
+
+// ================================================================
+//  ESTADO
+// ================================================================
+const LS_DRAFT = 'sl_quest_rascunho', LS_SENT = 'sl_quest_enviado', LS_QUEUE = 'sl_quest_pendente';
+const store = {
+  get(k){ try { return JSON.parse(localStorage.getItem(k)); } catch(e){ return null; } },
+  set(k,v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} },
+  del(k){ try { localStorage.removeItem(k); } catch(e){} }
+};
+let ans = store.get(LS_DRAFT) || {};
+let step = -1;           // -1 = tela inicial
+const screen = document.getElementById('screen');
+const btnPrev = document.getElementById('btnPrev'), btnNext = document.getElementById('btnNext');
+
+function save(){ store.set(LS_DRAFT, ans); }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+let snackT; function snack(m){ const el=document.getElementById('snackbar'); el.textContent=m; el.classList.add('show'); clearTimeout(snackT); snackT=setTimeout(()=>el.classList.remove('show'),3200); }
+
+// ================================================================
+//  RENDERIZAÇÃO DOS ITENS
+// ================================================================
+function scaleRow(name, val, labels, small){
+  return `<div class="scale" role="radiogroup" aria-label="${esc(name)}">` +
+    [1,2,3,4,5].map(v => `<button type="button" class="scale-btn ${val===v?'on':''}" data-name="${name}" data-v="${v}" role="radio" aria-checked="${val===v}" title="${labels[v-1]}">${v}</button>`).join('') +
+    `</div><div class="scale-ends"><span>${labels[0]}</span><span>${labels[4]}</span></div>`;
+}
+function itemHTML(it){
+  const done = isAnswered(it);
+  let h = `<div class="q-card ${done?'answered':''}" id="card-${it.id}"><div class="q-text"><span class="q-id">${it.id}</span>${esc(it.q)}</div>`;
+  if (it.type === 'single'){
+    h += it.opts.map((o,i) => `<button type="button" class="opt ${ans[it.id]===o?'on':''}" data-single="${it.id}" data-v="${esc(o)}">${esc(o)}</button>`).join('');
+  } else if (it.type === 'multi'){
+    const cur = ans[it.id] || [];
+    h += it.opts.map(o => `<button type="button" class="opt chk ${cur.includes(o)?'on':''}" data-multi="${it.id}" data-v="${esc(o)}">${esc(o)}</button>`).join('');
+    if (it.outro) h += `<input class="m3-input" style="margin-top:6px;" data-text="${it.id}_outro" placeholder="Outra (descreva)" value="${esc(ans[it.id+'_outro']||'')}">`;
+  } else if (it.type === 'likert'){
+    h += scaleRow(it.id, ans[it.id], LIKERT);
+  } else if (it.type === 'prepost'){
+    h += `<div class="pp-lbl">Antes de usar o aplicativo</div>` + scaleRow(it.id+'_antes', ans[it.id+'_antes'], CONHEC) +
+         `<div class="pp-lbl" style="margin-top:10px;">Agora</div>` + scaleRow(it.id+'_agora', ans[it.id+'_agora'], CONHEC);
+  } else if (it.type === 'modgrid'){
+    h += it.mods.map(([k,l]) => { const name = `${it.id}_${k}`, v = ans[name];
+      return `<div class="mod-row"><div class="mod-name">${esc(l)}</div><div class="mod-btns">` +
+        [1,2,3,4,5].map(n => `<button type="button" class="scale-btn sm ${v===n?'on':''}" data-name="${name}" data-v="${n}" aria-label="${esc(l)}: ${n}">${n}</button>`).join('') +
+        `<button type="button" class="scale-btn sm nu ${v==='NU'?'on':''}" data-name="${name}" data-v="NU">Não usei</button></div></div>`; }).join('');
+  } else if (it.type === 'text'){
+    h += `<textarea class="m3-input" rows="3" data-text="${it.id}" maxlength="1500" placeholder="Sua resposta">${esc(ans[it.id]||'')}</textarea>`;
+  }
+  return h + '</div>';
+}
+function isAnswered(it){
+  if (it.type==='prepost') return ans[it.id+'_antes']!=null && ans[it.id+'_agora']!=null;
+  if (it.type==='modgrid') return it.mods.every(([k]) => ans[`${it.id}_${k}`]!=null);
+  if (it.type==='multi') return (ans[it.id]||[]).length>0 || !!ans[it.id+'_outro'];
+  if (it.type==='text') return !!(ans[it.id]||'').trim();
+  return ans[it.id]!=null;
+}
+function bindItems(){
+  screen.querySelectorAll('[data-single]').forEach(b => b.onclick = () => { ans[b.dataset.single] = b.dataset.v; save(); refreshCard(b.dataset.single); });
+  screen.querySelectorAll('[data-multi]').forEach(b => b.onclick = () => {
+    const id = b.dataset.multi, it = findItem(id), v = b.dataset.v; let cur = ans[id] || [];
+    if (cur.includes(v)) cur = cur.filter(x => x!==v);
+    else { cur = it.exclusivo && v===it.exclusivo ? [v] : cur.filter(x => x!==it.exclusivo).concat(v); }
+    ans[id] = cur; save(); refreshCard(id);
+  });
+  screen.querySelectorAll('.scale-btn').forEach(b => b.onclick = () => {
+    const v = b.dataset.v === 'NU' ? 'NU' : +b.dataset.v; ans[b.dataset.name] = v; save();
+    refreshCard(b.closest('.q-card').id.slice(5));
+  });
+  screen.querySelectorAll('[data-text]').forEach(t => t.oninput = () => { ans[t.dataset.text] = t.value; save(); t.closest('.q-card').classList.toggle('answered', isAnswered(findItem(t.closest('.q-card').id.slice(5)))); updateCount(); });
+}
+function findItem(id){ for (const s of SECTIONS) for (const it of s.items) if (it.id===id) return it; }
+function refreshCard(id){
+  const old = document.getElementById('card-'+id), tmp = document.createElement('div');
+  tmp.innerHTML = itemHTML(findItem(id)); old.replaceWith(tmp.firstChild); bindItems(); updateCount();
+}
+function updateCount(){
+  if (step < 0 || step >= SECTIONS.length) return;
+  const s = SECTIONS[step], n = s.items.filter(isAnswered).length;
+  document.getElementById('stepCount').textContent = `${n} de ${s.items.length} respondidas`;
+}
+
+// ================================================================
+//  TELAS
+// ================================================================
+function render(){
+  document.getElementById('content-area').scrollTop = 0;
+  const total = SECTIONS.length;
+  document.getElementById('progFill').style.width = (step<0 ? 0 : Math.min(100, (step+1)/total*100)) + '%';
+  document.getElementById('navRow').classList.toggle('hidden', step < 0 || step >= total);
+  if (step < 0) return renderStart();
+  if (step >= total) return renderReview();
+  const s = SECTIONS[step];
+  document.getElementById('stepLabel').textContent = s.titulo;
+  screen.innerHTML = `<h2 class="section-title">${s.titulo}</h2>` + (s.intro ? `<div class="m3-card intro">${s.intro}</div>` : '') + s.items.map(itemHTML).join('');
+  bindItems(); updateCount();
+  btnPrev.disabled = step === 0;
+  btnNext.textContent = step === total-1 ? 'Revisar e enviar ›' : 'Próxima ›';
+}
+function renderStart(){
+  document.getElementById('stepLabel').textContent = 'Início'; document.getElementById('stepCount').textContent = '';
+  const sent = store.get(LS_SENT), draft = Object.keys(ans).length > 0;
+  screen.innerHTML = `<div class="m3-card" style="text-align:center;padding:24px 16px;">
+      <div style="font-size:2.6rem;">🛰️</div>
+      <h2 style="font-size:var(--md-type-title-large);margin:8px 0;">Como foi usar o SensorLab?</h2>
+      <p class="muted">6 partes curtas · cerca de 15 minutos · anônimo</p>
+      ${sent ? `<div class="info-panel" style="margin-top:14px;text-align:left;">✅ Este aparelho já enviou uma resposta em ${new Date(sent).toLocaleString('pt-BR')}. Se você está usando o aparelho de um colega, pode responder também.</div>` : ''}
+      <button class="btn-filled btn-full" id="btnStart" style="margin-top:16px;">${draft ? 'Continuar de onde parei' : (sent ? 'Responder como outra pessoa' : 'Começar')}</button>
+      ${draft ? '<button class="btn-text" id="btnRestart" style="margin-top:6px;">Começar do zero</button>' : ''}
+    </div>`;
+  document.getElementById('btnStart').onclick = () => { if (sent && !draft) { ans = {}; save(); } step = 0; render(); };
+  const r = document.getElementById('btnRestart'); if (r) r.onclick = () => { ans = {}; save(); step = 0; render(); };
+}
+function renderReview(){
+  document.getElementById('stepLabel').textContent = 'Revisão e envio'; document.getElementById('stepCount').textContent = '';
+  const rows = SECTIONS.slice(1).map((s,i) => { const n = s.items.filter(isAnswered).length, t = s.items.length;
+    return `<button class="rev-row" data-go="${i+1}"><span>${s.titulo}</span><span class="${n<t?'warn':'ok'}">${n}/${t}</span></button>`; }).join('');
+  const missing = SECTIONS.slice(1).reduce((a,s) => a + s.items.filter(it => !isAnswered(it)).length, 0);
+  screen.innerHTML = `<h2 class="section-title">Revisão e envio</h2>
+    <div class="m3-card">${rows}
+      <p class="muted" style="margin-top:10px;">${missing ? `Há <strong>${missing}</strong> item(ns) sem resposta. Toque numa parte para completar, ou envie assim mesmo.` : 'Tudo respondido. Obrigado!'}</p></div>
+    <button class="btn-filled btn-full" id="btnSend">📤 Enviar respostas</button>
+    <button class="btn-outlined btn-full" id="btnBack" style="margin-top:8px;">‹ Voltar à Parte F</button>`;
+  screen.querySelectorAll('[data-go]').forEach(b => b.onclick = () => { step = +b.dataset.go; render(); });
+  document.getElementById('btnBack').onclick = () => { step = SECTIONS.length-1; render(); };
+  document.getElementById('btnSend').onclick = submit;
+}
+function renderDone(ok, msg){
+  document.getElementById('navRow').classList.add('hidden');
+  document.getElementById('progFill').style.width = '100%';
+  document.getElementById('stepLabel').textContent = ok ? 'Enviado' : 'Envio pendente'; document.getElementById('stepCount').textContent = '';
+  screen.innerHTML = `<div class="m3-card" style="text-align:center;padding:24px 16px;">
+    <div style="font-size:2.6rem;">${ok ? '🎉' : '📶'}</div>
+    <h2 style="font-size:var(--md-type-title-large);margin:8px 0;">${ok ? 'Respostas enviadas!' : 'Sem conexão com o servidor'}</h2>
+    <p class="muted" style="line-height:1.6;">${msg}</p>
+    ${ok ? '' : '<button class="btn-filled btn-full" id="btnRetry" style="margin-top:14px;">Tentar enviar de novo</button>'}
+  </div>`;
+  const r = document.getElementById('btnRetry'); if (r) r.onclick = flushQueue;
+}
+
+// ================================================================
+//  ENVIO
+// ================================================================
+function uid(){ return (crypto.randomUUID ? crypto.randomUUID() : 'r'+Date.now().toString(36)+Math.random().toString(36).slice(2)); }
+function buildPayload(){
+  const p = { resp_id: uid(), enviado_em: new Date().toISOString(), turma: CONFIG.TURMA, versao_form: CONFIG.VERSAO_FORM };
+  for (const s of SECTIONS) for (const it of s.items){
+    if (it.type==='prepost'){ p[it.id+'_antes'] = ans[it.id+'_antes'] ?? ''; p[it.id+'_agora'] = ans[it.id+'_agora'] ?? ''; }
+    else if (it.type==='modgrid'){ it.mods.forEach(([k]) => p[`${it.id}_${k}`] = ans[`${it.id}_${k}`] ?? ''); }
+    else if (it.type==='multi'){ p[it.id] = (ans[it.id]||[]).join('; '); if (it.outro) p[it.id+'_outro'] = (ans[it.id+'_outro']||'').trim(); }
+    else if (it.type==='single' && it.key!=null){ const i = it.opts.indexOf(ans[it.id]); p[it.id] = i>=0 ? 'abcd'[i] : ''; }
+    else p[it.id] = typeof ans[it.id]==='string' ? ans[it.id].trim() : (ans[it.id] ?? '');
+  }
+  // Escore SUS (0–100), só com os 10 itens respondidos
+  const c = [...Array(10)].map((_,i) => ans['C'+(i+1)]);
+  p.SUS = c.every(v => typeof v==='number') ? c.reduce((a,v,i) => a + (i%2===0 ? v-1 : 5-v), 0) * 2.5 : '';
+  // Acertos da Parte E
+  const E = SECTIONS.find(s => s.id==='E').items;
+  p.E_acertos = E.filter(it => it.opts.indexOf(ans[it.id]) === it.key).length;
+  p.E_respondidas = E.filter(it => ans[it.id]!=null).length;
+  return p;
+}
+function csvLine(vals){ return vals.map(v => { const t = String(v ?? ''); return /[;"\n]/.test(t) ? '"' + t.replace(/"/g,'""') + '"' : t; }).join(';'); }
+async function postWeb3(payload){
+  const keys = Object.keys(payload);
+  const body = { access_key: CONFIG.WEB3FORMS_KEY, subject: 'Questionário SensorLab – nova resposta', from_name: 'Questionário SensorLab',
+                 ...payload, cabecalho_csv: csvLine(keys), linha_csv: csvLine(keys.map(k => payload[k])) };
+  const r = await fetch('https://api.web3forms.com/submit', { method:'POST', headers:{'Content-Type':'application/json', 'Accept':'application/json'}, body: JSON.stringify(body) });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok || j.success === false) throw new Error(j.message || 'recusado');
+  return true;
+}
+async function post(payload){
+  if (CONFIG.WEB3FORMS_KEY) return postWeb3(payload);
+  const opts = { method:'POST', body: JSON.stringify(payload), headers:{'Content-Type':'text/plain;charset=utf-8'} };
+  try {
+    const r = await fetch(CONFIG.ENDPOINT, opts);
+    const j = await r.json().catch(() => ({ ok: r.ok }));
+    if (j.ok === false) throw new Error(j.erro || 'recusado');
+    return true;
+  } catch (e) {
+    // Alguns navegadores bloqueiam a leitura da resposta (CORS): tenta envio "às cegas"
+    if (e instanceof TypeError){ await fetch(CONFIG.ENDPOINT, { ...opts, mode:'no-cors' }); return true; }
+    throw e;
+  }
+}
+async function submit(){
+  if (!CONFIG.ENDPOINT && !CONFIG.WEB3FORMS_KEY){ snack('O professor ainda não configurou o envio das respostas.'); return; }
+  const btn = document.getElementById('btnSend'); btn.disabled = true; btn.textContent = 'Enviando…';
+  const payload = buildPayload();
+  const q = store.get(LS_QUEUE) || []; q.push(payload); store.set(LS_QUEUE, q);
+  ans = {}; save();
+  await flushQueue();
+}
+async function flushQueue(){
+  let q = store.get(LS_QUEUE) || [];
+  if (!q.length) return;
+  const rest = [];
+  for (const p of q){ try { await post(p); } catch(e){ rest.push(p); } }
+  store.set(LS_QUEUE, rest);
+  if (rest.length === 0){ store.set(LS_SENT, Date.now()); store.del(LS_QUEUE); step = SECTIONS.length; renderDone(true, 'Obrigado por participar. Suas respostas foram registradas de forma anônima. Você já pode fechar esta página.'); }
+  else renderDone(false, 'Suas respostas ficaram guardadas neste aparelho e não foram perdidas. Conecte-se à internet e toque no botão abaixo, ou abra esta página de novo mais tarde: o envio será retomado automaticamente.');
+}
+
+// ================================================================
+//  NAVEGAÇÃO
+// ================================================================
+btnPrev.onclick = () => { if (step > 0){ step--; render(); } };
+btnNext.onclick = () => {
+  if (step === 0){
+    if (!ans.consentimento){ snack('Indique se concorda em participar.'); return; }
+    if (ans.consentimento !== 'Sim, concordo em participar'){
+      ans = {}; save(); step = SECTIONS.length;
+      document.getElementById('navRow').classList.add('hidden');
+      screen.innerHTML = `<div class="m3-card" style="text-align:center;padding:24px 16px;"><div style="font-size:2.4rem;">🙏</div><h2 style="font-size:var(--md-type-title-large);margin:8px 0;">Tudo bem!</h2><p class="muted">Nenhuma resposta foi registrada. Obrigado pela atenção.</p></div>`;
+      return;
+    }
+  }
+  step++; render();
+};
+
+if (!CONFIG.ENDPOINT && !CONFIG.WEB3FORMS_KEY){
+  const w = document.getElementById('cfgWarn'); w.classList.remove('hidden');
+  w.innerHTML = '⚙️ <strong>Modo de teste:</strong> o envio ainda não foi configurado (CONFIG.WEB3FORMS_KEY ou CONFIG.ENDPOINT). As respostas não serão enviadas.';
+}
+render();
+if ((store.get(LS_QUEUE) || []).length) flushQueue();
+
+</script>
+</body>
+</html>
